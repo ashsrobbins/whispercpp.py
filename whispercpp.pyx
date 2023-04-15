@@ -28,7 +28,7 @@ MODELS = {
 }
 
 def model_exists(model):
-    model = str(model.decode('utf-8'))
+    # model = str(model.decode('utf-8'))
     print('Checking if model exists in ' + str(Path(MODELS_DIR).joinpath(model)))
     return os.path.exists(Path(MODELS_DIR).joinpath(model))
 
@@ -87,7 +87,7 @@ cdef class Whisper:
     cdef whisper_full_params params
 
     def __init__(self, model=DEFAULT_MODEL, pb=None):
-        model_fullname = f'{model}.bin'.encode('utf8')
+        model_fullname = f'{model}.bin'#.encode('utf8')
         download_model(model_fullname)
         model_path = Path(MODELS_DIR).joinpath(model_fullname)
         cdef bytes model_b = str(model_path).encode('utf8')
