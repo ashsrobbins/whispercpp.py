@@ -7,7 +7,7 @@ import requests
 import os
 from pathlib import Path
 
-MODELS_DIR = str(Path('~/.ggml-models').expanduser())
+MODELS_DIR = str(Path('/ggml-models').expanduser())
 print("Saving models to:", MODELS_DIR)
 
 
@@ -15,8 +15,8 @@ cimport numpy as cnp
 
 cdef int SAMPLE_RATE = 16000
 cdef char* TEST_FILE = 'test.wav'
-cdef char* DEFAULT_MODEL = 'tiny'
-cdef char* LANGUAGE = b'fr'
+cdef char* DEFAULT_MODEL = 'base.en'
+cdef char* LANGUAGE = b'en'
 cdef int N_THREADS = os.cpu_count()
 
 MODELS = {
@@ -85,7 +85,7 @@ cdef class Whisper:
     cdef whisper_full_params params
 
     def __init__(self, model=DEFAULT_MODEL, pb=None):
-        model_fullname = f'ggml-{model}.bin'.encode('utf8')
+        model_fullname = f'{model}.bin'.encode('utf8')
         download_model(model_fullname)
         model_path = Path(MODELS_DIR).joinpath(model_fullname)
         cdef bytes model_b = str(model_path).encode('utf8')
