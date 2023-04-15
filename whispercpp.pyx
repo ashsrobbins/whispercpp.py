@@ -86,7 +86,7 @@ cdef class Whisper:
 
     def __init__(self, model=DEFAULT_MODEL, pb=None):
         model_fullname = f'{model}.bin'.encode('utf8')
-        download_model(model_fullname)
+        download_model(model)
         model_path = Path(MODELS_DIR).joinpath(model_fullname)
         cdef bytes model_b = str(model_path).encode('utf8')
         self.ctx = whisper_init(model_b)
